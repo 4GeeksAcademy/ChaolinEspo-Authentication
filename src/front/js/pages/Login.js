@@ -1,22 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
 export const Login = () => {
 	const { store, actions } = useContext(Context);
     const[email, setEmail] = useState("")
-    const[password, setPassword] = useState("")
+    const[password, setPassword] = useState("");
+    const navigate = useNavigate ();
 
     const handleLogin= async(event)=>{
         event.preventDefault()
-        const success = await actions.logIN({
+        const success = await actions.logIn({
             email:email,
             password:password
 
         })
         if (success) {
-            Navigate("/")
+            navigate("/private")
         } else {
             alert("something went wrong")
         }
@@ -30,7 +31,7 @@ export const Login = () => {
             name="Email"
             value={email}
             placeholder= "Email"
-            onChange={(e)=> setEmail.e.target.value}       
+            onChange={(e)=> setEmail(e.target.value)}       
         />
 
         <input
@@ -38,14 +39,15 @@ export const Login = () => {
             name="Password"
             value={password}
             placeholder="password"
-            onChange={(e)=> setPassword.e.target.value}
+            onChange={(e)=> setPassword(e.target.value)}
         />
         <button 
             type="button" 
-            onSubmit={handleLogin}
+            onClick={handleLogin}
             class="btn btn-primary">
-            Primary Button
+            login
         </button>
+        <Link to="/signup">click here to signup</Link>
 
       </div>
 		

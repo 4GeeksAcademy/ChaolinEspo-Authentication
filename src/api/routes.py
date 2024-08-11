@@ -33,7 +33,7 @@ def login():
     user = User.query.filter_by(email = email).one_or_none()
     
     access_token = create_access_token(identity=user.id)
-    return jsonify(access_token=access_token)
+    return jsonify({"token":access_token}), 200
     
 @api.route("/signup", methods=["POST"])
 def signup():
